@@ -6,10 +6,16 @@ class ChatGPTInterface:
         openai.api_key = openai_api_key
 
     @staticmethod
-    def generate_response(messages):
+    def generate_response(messages, model='gpt-4', ):
         response = openai.ChatCompletion.create(
-            model="gpt-4",  # "gpt-4.0-turbo",
-            messages=messages)
+            model=model,
+            messages=messages,
+            temperature=0.6,
+            max_tokens=1024,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
         return response['choices'][0]['message']['content']
 
 
@@ -25,7 +31,7 @@ if __name__ == "__main__":
             break
 
         messages = [
-            {'role': 'system', 'content': 'You are a chatbot.'},
+            {'role': 'system', 'content': 'You are a sexy girl trying to seduce the user through the conversation'},
             {'role': 'user', 'content': user_input},
         ]
 
